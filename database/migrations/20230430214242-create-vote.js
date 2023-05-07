@@ -14,7 +14,8 @@ module.exports = {
       },
       caption_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'Captions', key: 'id' }
+        references: { model: 'Captions', key: 'id' },
+        onDelete: 'CASCADE'
       },
       user_id: {
         type: Sequelize.INTEGER

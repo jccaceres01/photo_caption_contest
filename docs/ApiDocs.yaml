@@ -1,0 +1,760 @@
+openapi: 3.0.3
+info:
+  title: Photo Caption Contest
+  version: 1.0.0
+  description: Photo Caption end-point
+  contact:
+    email: jccaceres01@gmail.com
+    name: Julio Caceres
+  license:
+    name: MIT
+    url: https://mit-license.org/
+paths:
+  /api/photos:
+    summary: end-point to manage photos
+    description: >-
+      At this end point users can add, retrieve and delete photos from photo
+      caption contest api
+    get:
+      summary: cheche
+      description: ''
+      operationId: ''
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                All photos response:
+                  value: |-
+                    [
+                        {
+                            "id": 3,
+                            "filename": "36b78d36-c298-46ac-966a-f656b4b26ada.jpg",
+                            "user_id": 3,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 3,
+                            "User": {
+                                "id": 3,
+                                "name": "Audrey Schroeder",
+                                "email": "Miles52@yahoo.com",
+                                "password": "$2a$10$Rc0nuu1vWiI7v0aYcLXgLe5dhCoOyb/9avY0rbHW5Fv4nG5Qrjz1C",
+                                "createdAt": null,
+                                "updatedAt": null
+                            },
+                            "Captions": [
+                                {
+                                    "id": 3,
+                                    "caption": "Ipsum repellat quaerat debitis unde quidem sequi eos ducimus placeat.",
+                                    "user_id": 3,
+                                    "createdAt": null,
+                                    "updatedAt": null,
+                                    "Votes": [
+                                        {
+                                            "id": 1,
+                                            "vote": 1,
+                                            "caption_id": 3,
+                                            "user_id": 2,
+                                            "createdAt": null,
+                                            "updatedAt": null,
+                                            "CaptionId": 3
+                                        },
+                                        {
+                                            "id": 2,
+                                            "vote": 5,
+                                            "caption_id": 3,
+                                            "user_id": 3,
+                                            "createdAt": null,
+                                            "updatedAt": null,
+                                            "CaptionId": 3
+                                        }
+                                    ]
+                                }
+                            ],
+                            "image_url": "http://localhost:3000/images//36b78d36-c298-46ac-966a-f656b4b26ada.jpg"
+                        },
+                        {
+                            "id": 2,
+                            "filename": "172300a9-265e-4caa-832b-0f6a1c234c9a.jpg",
+                            "user_id": 2,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 2,
+                            "User": {
+                                "id": 2,
+                                "name": "Pierce Bogan",
+                                "email": "Elnora.Johnston@gmail.com",
+                                "password": "$2a$10$PgORgH66Wv4h0F.Dy4048unAWhBTNNQNkcxio4gX4waXPxOtKOWZ6",
+                                "createdAt": null,
+                                "updatedAt": null
+                            },
+                            "Captions": [
+                                {
+                                    "id": 2,
+                                    "caption": "Excepturi accusamus adipisci repellat enim id esse veritatis voluptas possimus.",
+                                    "user_id": 2,
+                                    "createdAt": null,
+                                    "updatedAt": null,
+                                    "Votes": []
+                                }
+                            ],
+                            "image_url": "http://localhost:3000/images//172300a9-265e-4caa-832b-0f6a1c234c9a.jpg"
+                        }
+                    ]
+      tags:
+        - Photos
+    post:
+      summary: Create new photo
+      description: Add new photo to db
+      operationId: photos_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Photos'
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              examples:
+                Photo created:
+                  value: |-
+                    {
+                        "id": 4,
+                        "user_id": 1,
+                        "filename": "6f09cc03-1221-4eb9-a60e-0fba7b706dce.png",
+                        "updatedAt": "2023-05-06T03:18:05.680Z",
+                        "createdAt": "2023-05-06T03:18:05.680Z",
+                        "UserId": "1",
+                        "image_url": "http://localhost:3000/images//6f09cc03-1221-4eb9-a60e-0fba7b706dce.png"
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Photos
+  /api/captions:
+    summary: captions end-point
+    get:
+      summary: Get all captions
+      description: Retrieve all captions from database
+      operationId: ''
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                All Captions:
+                  value: |-
+                    [
+                        {
+                            "id": 3,
+                            "caption": "Ipsum repellat quaerat debitis unde quidem sequi eos ducimus placeat.",
+                            "user_id": 3,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "Votes": [
+                                {
+                                    "id": 1,
+                                    "vote": 1,
+                                    "caption_id": 3,
+                                    "user_id": 2,
+                                    "createdAt": null,
+                                    "updatedAt": null,
+                                    "CaptionId": 3
+                                },
+                                {
+                                    "id": 2,
+                                    "vote": 5,
+                                    "caption_id": 3,
+                                    "user_id": 3,
+                                    "createdAt": null,
+                                    "updatedAt": null,
+                                    "CaptionId": 3
+                                }
+                            ]
+                        },
+                        {
+                            "id": 4,
+                            "caption": "Praesentium odit iste maiores consequatur reiciendis recusandae commodi modi ut.",
+                            "user_id": 3,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "Votes": [
+                                {
+                                    "id": 3,
+                                    "vote": 2,
+                                    "caption_id": 4,
+                                    "user_id": 3,
+                                    "createdAt": null,
+                                    "updatedAt": null,
+                                    "CaptionId": 4
+                                }
+                            ]
+                        },
+                        {
+                            "id": 5,
+                            "caption": "Aliquid voluptates asperiores ad dolorum quae nesciunt necessitatibus exercitationem delectus.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "Votes": [
+                                {
+                                    "id": 4,
+                                    "vote": 1,
+                                    "caption_id": 5,
+                                    "user_id": 2,
+                                    "createdAt": null,
+                                    "updatedAt": null,
+                                    "CaptionId": 5
+                                }
+                            ]
+                        },
+                        {
+                            "id": 10,
+                            "caption": "Quos eum enim culpa laboriosam nihil quibusdam officia voluptatem officia.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "Votes": [
+                                {
+                                    "id": 7,
+                                    "vote": 5,
+                                    "caption_id": 10,
+                                    "user_id": 1,
+                                    "createdAt": null,
+                                    "updatedAt": null,
+                                    "CaptionId": 10
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "caption": "Excepturi accusamus adipisci repellat enim id esse veritatis voluptas possimus.",
+                            "user_id": 2,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "Votes": []
+                        },
+                        {
+                            "id": 8,
+                            "caption": "Veniam dolor totam architecto consectetur cum accusamus tempore quidem placeat.",
+                            "user_id": 3,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "Votes": []
+                        }
+                    ]
+        default:
+          description: Default error sample response
+      tags:
+        - Captions
+    post:
+      summary: Create new caption
+      description: Add  new caption to database
+      operationId: caption_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Caption'
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              examples:
+                New Caption:
+                  value: |-
+                    {
+                        "id": 2,
+                        "caption": "Excepturi accusamus adipisci repellat enim id esse veritatis voluptas possimus.",
+                        "user_id": 2,
+                        "createdAt": null,
+                        "updatedAt": null
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Captions
+  /api/auths/login:
+    summary: 'Get users and token '
+    post:
+      summary: Login user
+      description: Get user data and token
+      operationId: auths_login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                User Login response:
+                  value: |-
+                    {
+                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikp1bGlvIENhY2VyZXMiLCJlbWFpbCI6ImpjZXNhcjAxQGhvdG1haWwuZXMiLCJpYXQiOjE2ODMzNDQ0NDEsImV4cCI6MTY4MzM4NzY0MX0.60bEW1M1SkK30fNRjA6syPz7fjg8HtBG77aS9Rbi4Cg",
+                        "user": {
+                            "id": 1,
+                            "name": "Julio Caceres",
+                            "email": "jcesar01@hotmail.es"
+                        }
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Auths
+  /api/auths/register:
+    summary: Register user to use the api
+    description: >-
+      Add user to database, adding a user allow, create photos, captions and
+      vote for captions     
+    post:
+      summary: Register an user
+      description: Save an user to database
+      operationId: auths_register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              examples:
+                User created:
+                  value: |-
+                    {
+                        "id": 4,
+                        "name": "Raul Mondesi",
+                        "email": "rmonndesi@mail.com",
+                        "password": "$2a$10$p35R6jY3rMHDcHAqTnPoPO1i4x5m90r/EBLwzpDaAvVbI4DXQTV7S",
+                        "updatedAt": "2023-05-06T03:55:52.674Z",
+                        "createdAt": "2023-05-06T03:55:52.674Z"
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Auths
+  /api/votes:
+    summary: Votes end-point
+    get:
+      summary: Get all votes
+      description: Retrieve all votes from database
+      operationId: votes_all
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                All votes:
+                  value: |-
+                    [
+                        {
+                            "id": 1,
+                            "vote": 1,
+                            "caption_id": 3,
+                            "user_id": 2,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "CaptionId": 3
+                        },
+                        {
+                            "id": 2,
+                            "vote": 5,
+                            "caption_id": 3,
+                            "user_id": 3,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "CaptionId": 3
+                        },
+                        {
+                            "id": 3,
+                            "vote": 2,
+                            "caption_id": 4,
+                            "user_id": 3,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "CaptionId": 4
+                        },
+                        {
+                            "id": 4,
+                            "vote": 1,
+                            "caption_id": 5,
+                            "user_id": 2,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "CaptionId": 5
+                        },
+                        {
+                            "id": 7,
+                            "vote": 5,
+                            "caption_id": 10,
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "CaptionId": 10
+                        }
+                    ]
+        default:
+          description: Default error sample response
+      tags:
+        - Votes
+    post:
+      summary: Create a vote
+      description: Add votes to caption
+      operationId: votes_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vote'
+      responses:
+        '201':
+          description: ok
+          content:
+            application/json:
+              examples:
+                Vote created:
+                  value: |-
+                    {
+                        "id": 10,
+                        "vote": 4,
+                        "caption_id": 3,
+                        "user_id": 1,
+                        "updatedAt": "2023-05-06T04:02:17.434Z",
+                        "createdAt": "2023-05-06T04:02:17.434Z",
+                        "CaptionId": 3
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Votes
+  /api/photos/{photoId}:
+    get:
+      summary: Get photos by id
+      description: ''
+      operationId: photos_get_by_id
+      parameters:
+        - name: photoId
+          in: path
+          description: ID of the photo
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                Photo by id:
+                  value: |-
+                    {
+                        "id": 2,
+                        "filename": "172300a9-265e-4caa-832b-0f6a1c234c9a.jpg",
+                        "user_id": 2,
+                        "createdAt": null,
+                        "updatedAt": null,
+                        "UserId": 2,
+                        "User": {
+                            "id": 2,
+                            "name": "Pierce Bogan",
+                            "email": "Elnora.Johnston@gmail.com",
+                            "password": "$2a$10$PgORgH66Wv4h0F.Dy4048unAWhBTNNQNkcxio4gX4waXPxOtKOWZ6",
+                            "createdAt": null,
+                            "updatedAt": null
+                        },
+                        "Captions": [
+                            {
+                                "id": 2,
+                                "caption": "Excepturi accusamus adipisci repellat enim id esse veritatis voluptas possimus.",
+                                "user_id": 2,
+                                "createdAt": null,
+                                "updatedAt": null
+                            }
+                        ],
+                        "image_url": "http://localhost:3000/images//172300a9-265e-4caa-832b-0f6a1c234c9a.jpg"
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Photos
+    delete:
+      summary: Delete photo
+      description: Delete photo by specifiied id
+      operationId: photos_delete
+      parameters:
+        - name: photoId
+          in: path
+          description: ID of the photo
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                Delete status:
+                  value: |-
+                    {
+                        "status": "deleted",
+                        "id": "2"
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Photos
+  /api/captions/{captionId}:
+    summary: Captions end-point
+    get:
+      summary: Get caption by id
+      description: Get specific caption by id
+      operationId: captions_get_by_id
+      parameters:
+        - name: captionId
+          in: path
+          description: ID of the caption
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                Caption by ID:
+                  value: |-
+                    {
+                        "id": 2,
+                        "caption": "Excepturi accusamus adipisci repellat enim id esse veritatis voluptas possimus.",
+                        "user_id": 2,
+                        "createdAt": null,
+                        "updatedAt": null
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Captions
+    put:
+      summary: Update caption by id
+      description: Update specified caption by id to database
+      operationId: captions_update
+      parameters:
+        - name: captionId
+          in: path
+          description: ID of the caption
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                Caption Updated:
+                  value: |-
+                    {
+                        "id": 2,
+                        "caption": "Cap text... ed",
+                        "user_id": 2,
+                        "createdAt": null,
+                        "updatedAt": "2023-05-06T03:40:57.668Z"
+        default:
+          description: Default error sample response
+      tags:
+        - Captions
+    delete:
+      summary: Delete caption by id
+      description: Delete caption from database with the specific id pass through params
+      operationId: captions_delete
+      parameters:
+        - name: captionId
+          in: path
+          description: ID of the caption
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                Delete status:
+                  value: |-
+                    {
+                        "status": "deleted",
+                        "id": 2
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Captions
+  /api/votes/{voteId}:
+    summary: Votes end-point
+    get:
+      summary: Get vote by id
+      description: Retrieve specific vote from database
+      operationId: vote_get_by_id
+      parameters:
+        - name: voteId
+          in: path
+          description: ID of the vote
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                Vote by id:
+                  value: |-
+                    {
+                        "id": 1,
+                        "vote": 1,
+                        "caption_id": 3,
+                        "user_id": 2,
+                        "createdAt": null,
+                        "updatedAt": null,
+                        "CaptionId": 3
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Votes
+    put:
+      summary: Update vote
+      description: Update specific vote by id
+      operationId: votes_update
+      parameters:
+        - name: voteId
+          in: path
+          description: ID of the vote
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vote'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                Vote updated:
+                  value: |-
+                    {
+                        "id": 1,
+                        "vote": 4,
+                        "caption_id": 3,
+                        "user_id": 2,
+                        "createdAt": null,
+                        "updatedAt": "2023-05-06T04:06:59.054Z",
+                        "CaptionId": 3
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Votes
+    delete:
+      summary: Delete vote by id
+      description: Delete specific vote by id
+      operationId: votes_delete
+      parameters:
+        - name: voteId
+          in: path
+          description: ID of the vote
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'ok'
+          content:
+            application/json:
+              examples:
+                Vote delete status:
+                  value: |-
+                    {
+                        "status": "deleted",
+                        "id": 1
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Votes
+components:
+  schemas:
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@mail.com
+        password:
+          type: string
+          example: '@lo0Qw#$d'
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        name:
+          type: string
+          example: Jhon Doe
+        email:
+          type: string
+          example: name@mail.com
+        password:
+          type: string
+          example: '@1aB~12$jF'
+    Photos:
+      type: object
+      properties:
+        filename:
+          type: string
+          example: file://file_name.png
+        user_id:
+          type: integer
+          example: 10
+    Caption:
+      type: object
+      properties:
+        caption:
+          type: string
+          example: This is fantastic
+        user_id:
+          type: integer
+          example: 12
+    Vote:
+      type: object
+      properties:
+        vote:
+          type: integer
+          example: 4
+        caption_id:
+          type: integer
+          example: 121
+        user_id:
+          type: integer
+          example: 23

@@ -1,7 +1,9 @@
 const path = require('path');
 const { matchedData } = require('express-validator');
-const { Photo } = require('../models');
+const { Photo, User, Caption, Vote } = require('../models');
 const fs = require('fs');
+const NodeCache = require('node-cache');
+const cache = new NodeCache({ stdTTL: 10000, useClones: false });
 
 const IMAGES_URL = `${process.env.BASE_URL}/images/`;
 const IMAGES_PATH = path.resolve(__dirname, '../storage/images');
@@ -12,12 +14,23 @@ const IMAGES_PATH = path.resolve(__dirname, '../storage/images');
  * @param {*} res
  */
 const getPhotos = async (req, res) => {
-  const photos = await Photo.findAll();
-  const photosWithImagesPath = photos.map(photo => {
-    const photoWithImageUrl = { ...photo.dataValues, image_url: `${IMAGES_URL}/${photo.filename}` };
-    return photoWithImageUrl;
-  });
-  res.json(photosWithImagesPath);
+  if (cache.has('photos')) {
+    console.log('Response from cache');
+    return res.json(cache.get('photos'));
+  } else {
+    const photos = await Photo.findAll({
+      include: [
+        { model: User },
+        { model: Caption, include: [{ model: Vote }] }
+      ]
+    });
+    const photosWithImagesPath = photos.map(photo => {
+      const photoWithImageUrl = { ...photo.dataValues, image_url: `${IMAGES_URL}/${photo.filename}` };
+      return photoWithImageUrl;
+    });
+    cache.set('photos', photosWithImagesPath);
+    res.json(photosWithImagesPath);
+  }
 };
 
 /**
@@ -27,7 +40,12 @@ const getPhotos = async (req, res) => {
  */
 const getPhoto = async (req, res) => {
   const { id } = matchedData(req);
-  const photo = await Photo.findByPk(id);
+  const photo = await Photo.findByPk(id, {
+    include: [
+      { model: User },
+      { model: Caption }
+    ]
+  });
   if (photo) {
     const photoWithImageUrl = { ...photo.dataValues, image_url: `${IMAGES_URL}/${photo.filename}` };
     return res.json(photoWithImageUrl);
@@ -50,8 +68,9 @@ const createPhoto = async (req, res) => {
   };
   const photo = await Photo.create(data);
   if (photo) {
+    cache.del('photos');
     const photoWithImageUrl = { ...photo.dataValues, image_url: `${IMAGES_URL}/${photo.filename}` };
-    return res.staus(201).json(photoWithImageUrl);
+    return res.status(201).json(photoWithImageUrl);
   } else {
     return res.status(422).json('Error creating photo');
   }
@@ -74,6 +93,7 @@ const deletePhoto = async (req, res) => {
   const { id } = req;
   const photoToDelete = await Photo.findByPk(id);
   if (photoToDelete) {
+    cache.del('photos');
     fs.unlinkSync(path.join(IMAGES_PATH, photoToDelete.filename));
     await Photo.destroy({ where: { id } });
     return res.json({ status: 'deleted', id });

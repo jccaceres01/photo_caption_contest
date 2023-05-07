@@ -6,10 +6,15 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const session = require('express-session');
+const swaggerUi = require('swagger-ui-express');
 
 const routes = require('./routes/index');
 
 const app = express();
+
+// config swagger ui express
+const swaggerDoc = require('./docs/ApiDocs.json');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -14,11 +14,13 @@ module.exports = {
       },
       photo_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'Photos', key: 'id' }
+        references: { model: 'Photos', key: 'id' },
+        onDelete: 'CASCADE'
       },
       user_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'Users', key: 'id' }
+        references: { model: 'Users', key: 'id' },
+        onDelete: 'CASCADE'
       },
       created_at: {
         allowNull: true,

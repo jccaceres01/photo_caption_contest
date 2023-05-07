@@ -8,7 +8,7 @@ const generateToken = (payload) => {
 };
 
 const validateToken = (req, res, next) => {
-  const token = req.header('authorization') || req.query._token;
+  const token = req.header('_token') || req.query._token;
   if (token) {
     jwt.verify(token, SECRET, (err, payload) => {
       if (err) return res.status(401).json('unauthorize');

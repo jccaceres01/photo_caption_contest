@@ -10,7 +10,7 @@ const loginUser = async (req, res) => {
   if (user) {
     const validPassword = await comparePassword(password, user.password);
     if (validPassword) {
-      const userData = { name: user.name, email: user.email };
+      const userData = { id: user.id, name: user.name, email: user.email };
       const token = generateToken(userData);
       const data = {
         token,

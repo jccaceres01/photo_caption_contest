@@ -1,5 +1,5 @@
 const { matchedData } = require('express-validator');
-const { Caption } = require('../models');
+const { Caption, Vote } = require('../models');
 
 /**
  * Get all caption
@@ -7,7 +7,11 @@ const { Caption } = require('../models');
  * @param {*} res
  */
 const getCaptions = async (req, res) => {
-  const caption = await Caption.findAll();
+  const caption = await Caption.findAll({
+    include: [
+      { model: Vote }
+    ]
+  });
   return res.json(caption);
 };
 

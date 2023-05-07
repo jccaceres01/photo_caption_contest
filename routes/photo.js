@@ -17,8 +17,8 @@ const {
 
 const { validateToken } = require('../utils/handleToken');
 
-router.get('/', validateToken, getPhotos);
-router.get('/:id', validateToken, requestPhotoValidator, getPhoto);
+router.get('/', getPhotos);
+router.get('/:id', requestPhotoValidator, getPhoto);
 router.post('/', validateToken, upload.single('photo'), createPhotoValidator, createPhoto);
 router.put('/:id', validateToken, requestPhotoValidator, createPhotoValidator, updatePhoto);
 router.delete('/:id', validateToken, requestPhotoValidator, deletePhoto);
