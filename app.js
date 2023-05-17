@@ -7,6 +7,7 @@ const logger = require('morgan');
 const helmet = require('helmet');
 const session = require('express-session');
 const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 
 const routes = require('./routes/index');
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'storage/images')));
 app.use(helmet());
+app.use(cors());
 app.use(session({
   secret: '~A1B2C3jkld_1',
   saveUninitialized: false,

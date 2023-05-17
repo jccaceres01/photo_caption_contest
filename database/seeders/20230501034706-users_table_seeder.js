@@ -22,7 +22,7 @@ module.exports = {
       password: myHashedPass
     }]);
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 10; i++) {
       const userHashedPass = await hashPassword(faker.internet.password());
 
       await queryInterface.bulkInsert('Users', [{

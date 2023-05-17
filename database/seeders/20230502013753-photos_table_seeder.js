@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { User } = require('../../models');
 const { v4: uuid } = require('uuid');
+const { randomNumber, randomNumberWithZero } = require('../../utils/randomNumber');
 
 const RESOURCE_PATH = path.join(__dirname, '../../', 'storage/resources');
 const IMAGES_PATH = path.join(__dirname, '../../', 'storage/images');
@@ -27,15 +28,18 @@ module.exports = {
     });
 
     users.forEach(async user => {
-      const fileName = `${uuid()}.jpg`;
-      fs.copyFileSync(path.join(RESOURCE_PATH, 'test.jpg'),
-        path.join(IMAGES_PATH, fileName));
-      const photo = {
-        filename: fileName,
-        user_id: user.id
-      };
+      const testImages = fs.readdirSync(RESOURCE_PATH);
+      for (let i = 0; i < randomNumber(5); i++) {
+        const fileName = `${uuid()}.jpg`;
+        fs.copyFileSync(path.join(RESOURCE_PATH, testImages[randomNumberWithZero(4)]),
+          path.join(IMAGES_PATH, fileName));
+        const photo = {
+          filename: fileName,
+          user_id: user.id
+        };
 
-      await queryInterface.bulkInsert('Photos', [photo]);
+        await queryInterface.bulkInsert('Photos', [photo]);
+      }
     });
   },
 

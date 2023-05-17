@@ -12,6 +12,9 @@ module.exports = {
       caption: {
         type: Sequelize.STRING
       },
+      style: {
+        type: Sequelize.STRING
+      },
       photo_id: {
         type: Sequelize.INTEGER,
         references: { model: 'Photos', key: 'id' },

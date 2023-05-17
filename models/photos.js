@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate (models) {
       // define association here
       this.belongsTo(models.User, { targetKey: 'id' });
-      this.hasMany(models.Caption, { foreignKey: 'id' });
+      this.hasMany(models.Caption);
     }
   }
   Photo.init({

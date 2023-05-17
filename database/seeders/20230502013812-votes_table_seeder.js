@@ -1,5 +1,6 @@
 'use strict';
 const { Caption, User } = require('../../models');
+const { randomNumberWithZero } = require('../../utils/randomNumber');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -15,11 +16,11 @@ module.exports = {
     */
     const captions = await Caption.findAll();
     const users = await User.findAll();
+    const vote = [true, false];
 
     for (let i = 0; i < captions.length; i++) {
       for (let j = 0; j < users.length; j++) {
-        const makeVote = Math.floor(Math.random() * 2);
-        if (makeVote) {
+        if (vote[randomNumberWithZero(1)]) {
           await queryInterface.bulkInsert('Votes', [{
             vote: Math.ceil(Math.random() * 5),
             caption_id: captions[i].id,

@@ -33,14 +33,33 @@ const getUser = async (req, res) => {
  * @param {*} res
  */
 const createUser = async (req, res) => {
-  req = matchedData(req);
-  const hashedPassword = await hashPassword(req.password);
-  const data = { ...req, password: hashedPassword };
-  const user = await User.create(data);
-  if (user) {
-    return res.status(201).json(user);
-  } else {
-    return res.status(422).json('Error creating user');
+  try {
+    req = matchedData(req);
+    const hashedPassword = await hashPassword(req.password);
+    const data = { ...req, password: hashedPassword };
+    const exists = await User.findOne({ where: { email: data.email } });
+    if (exists) {
+      return res.status(422).json({
+        errors: [
+          {
+            type: 'field',
+            value: '',
+            msg: 'Invalid value',
+            path: 'name',
+            location: 'body'
+          }
+        ]
+      });
+    }
+
+    const user = await User.create(data);
+    if (user) {
+      return res.status(201).json(user);
+    } else {
+      return res.status(422).json('Error creating user');
+    }
+  } catch (err) {
+    return res.status(500).json(err);
   }
 };
 

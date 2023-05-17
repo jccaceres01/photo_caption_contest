@@ -12,10 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate (models) {
       // define association here
       this.hasMany(models.Vote, { sourceKey: 'id' });
+      this.belongsTo(models.Photo);
     }
   }
   Caption.init({
     caption: DataTypes.STRING,
+    style: DataTypes.STRING,
+    photo_id: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER
   }, {
     sequelize,

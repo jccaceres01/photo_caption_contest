@@ -1,6 +1,7 @@
 'use strict';
 const { faker } = require('@faker-js/faker');
 const { Photo, User } = require('../../models');
+const { randomNumberWithZero } = require('../../utils/randomNumber');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -14,12 +15,15 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    for (let i = 0; i < 10; i++) {
+    const styles = ['style1', 'style2', 'style3'];
+
+    for (let i = 0; i < 30; i++) {
       const rndUserId = await User.findOne({ order: [Sequelize.fn('random')] });
       const rndPhotoId = await Photo.findOne({ order: [Sequelize.fn('random')] });
 
       await queryInterface.bulkInsert('Captions', [{
         caption: faker.lorem.sentence(10),
+        style: styles[randomNumberWithZero(2)],
         photo_id: rndPhotoId.id,
         user_id: rndUserId.id
       }]);

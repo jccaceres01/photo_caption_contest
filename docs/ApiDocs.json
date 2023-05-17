@@ -577,6 +577,84 @@
           "Votes"
         ]
       }
+    },
+    "/api/photos/{id}/captions": {
+      "summary": "get photo's captions",
+      "get": {
+        "summary": "Get all photo's captions",
+        "description": "Get the captions for the given id",
+        "operationId": "get_photos_captions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the photo",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Array of Captions": {
+                    "value": "[\n    {\n        \"id\": 1,\n        \"caption\": \"Nemo sed itaque quidem et nam rerum aspernatur ut et.\",\n        \"style\": \"style1\",\n        \"photo_id\": 1,\n        \"user_id\": 9,\n        \"createdAt\": null,\n        \"updatedAt\": null,\n        \"PhotoId\": 1\n    }\n]"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error sample response"
+          }
+        },
+        "tags": [
+          "Photos"
+        ]
+      }
+    },
+    "/api/captions/{captionId}/votes": {
+      "summary": "Get all votes for a given caption",
+      "get": {
+        "summary": "Get all votes for the given caption",
+        "description": "",
+        "operationId": "get_all_caption_votes",
+        "parameters": [
+          {
+            "name": "captionId",
+            "in": "path",
+            "description": "ID of the caption",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Array of votes": {
+                    "value": "[\n    {\n        \"id\": 7,\n        \"vote\": 5,\n        \"caption_id\": 2,\n        \"user_id\": 4,\n        \"createdAt\": null,\n        \"updatedAt\": null,\n        \"CaptionId\": 2\n    },\n    {\n        \"id\": 8,\n        \"vote\": 1,\n        \"caption_id\": 2,\n        \"user_id\": 8,\n        \"createdAt\": null,\n        \"updatedAt\": null,\n        \"CaptionId\": 2\n    },\n    {\n        \"id\": 9,\n        \"vote\": 5,\n        \"caption_id\": 2,\n        \"user_id\": 9,\n        \"createdAt\": null,\n        \"updatedAt\": null,\n        \"CaptionId\": 2\n    }\n]"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error sample response"
+          }
+        },
+        "tags": [
+          "Captions"
+        ]
+      }
     }
   },
   "components": {

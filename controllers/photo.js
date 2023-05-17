@@ -43,7 +43,7 @@ const getPhoto = async (req, res) => {
   const photo = await Photo.findByPk(id, {
     include: [
       { model: User },
-      { model: Caption }
+      { model: Caption, include: [{ model: Vote }] }
     ]
   });
   if (photo) {
@@ -83,6 +83,7 @@ const createPhoto = async (req, res) => {
  */
 const updatePhoto = async (req, res) => {
 };
+
 /**
  * Delete a photo
  * @param {*} req
@@ -102,10 +103,27 @@ const deletePhoto = async (req, res) => {
   }
 };
 
+/**
+ *
+ * Get photo's captions
+ */
+const getPhotoCaptions = async (req, res) => {
+  req = matchedData(req);
+  const { id } = req;
+  const photo = await Photo.findByPk(id);
+  if (photo) {
+    const captions = await photo.getCaptions();
+    return res.json(captions);
+  } else {
+    return res.status(404).json('No photo found');
+  }
+};
+
 module.exports = {
   getPhotos,
   getPhoto,
   createPhoto,
   updatePhoto,
-  deletePhoto
+  deletePhoto,
+  getPhotoCaptions
 };

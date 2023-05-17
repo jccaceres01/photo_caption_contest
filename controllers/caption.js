@@ -73,10 +73,25 @@ const deleteCaption = async (req, res) => {
   return res.json({ status: 'deleted', id: caption.id });
 };
 
+/**
+ * Get all caption's votes
+ * @param {*} req
+ * @param {*} res
+ */
+const getAllCaptionsVotes = async (req, res) => {
+  req = matchedData(req);
+  const { id } = req;
+  const caption = await Caption.findByPk(id);
+  if (!caption) return res.status(404).json('Caption not found');
+  const captionVotes = await caption.getVotes();
+  return res.json(captionVotes);
+};
+
 module.exports = {
   getCaptions,
   getCaption,
   createCaption,
   updateCaption,
-  deleteCaption
+  deleteCaption,
+  getAllCaptionsVotes
 };
