@@ -77,10 +77,37 @@ const deleteVote = async (req, res) => {
   return res.json({ status: 'deleted', id: vote.id });
 };
 
+/**
+ * Place or update vote
+ * @param {*} req
+ * @param {*} res
+ */
+const placeOrUpdateVote = async (req, res) => {
+  try {
+    req = matchedData(req);
+    const vote = await Vote.findOne({
+      where: {
+        caption_id: req.caption_id,
+        user_id: req.user_id
+      }
+    });
+    if (!vote) {
+      const newVote = await Vote.create(req);
+      return res.status(201).json(newVote);
+    }
+
+    const updated = await vote.update(req);
+    return res.json(updated);
+  } catch (err) {
+    return res.status(500).json(err.message);
+  }
+};
+
 module.exports = {
   getVotes,
   getVote,
   createVote,
   updateVote,
-  deleteVote
+  deleteVote,
+  placeOrUpdateVote
 };

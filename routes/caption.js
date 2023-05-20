@@ -14,7 +14,7 @@ const { validateToken } = require('../utils/handleToken');
 
 const {
   createCaptionValidator,
-  requestaptionValidator,
+  requestCaptionValidator,
   UpdateCaptionValidator
 } = require('../validators/caption');
 
@@ -22,14 +22,14 @@ const {
  * Restful routes
  */
 router.get('/', validateToken, getCaptions);
-router.get('/:id', validateToken, requestaptionValidator, getCaption);
+router.get('/:id', validateToken, requestCaptionValidator, getCaption);
 router.post('/', validateToken, upload.single('photo'), createCaptionValidator, createCaption);
-router.put('/:id', validateToken, requestaptionValidator, UpdateCaptionValidator, updateCaption);
-router.delete('/:id', requestaptionValidator, deleteCaption);
+router.put('/:id', validateToken, requestCaptionValidator, UpdateCaptionValidator, updateCaption);
+router.delete('/:id', requestCaptionValidator, deleteCaption);
 
 /**
  * Other routes
  */
-router.get('/:id/votes', requestaptionValidator, getAllCaptionsVotes);
+router.get('/:id/votes', requestCaptionValidator, getAllCaptionsVotes);
 
 module.exports = router;

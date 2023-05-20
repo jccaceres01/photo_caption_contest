@@ -14,13 +14,13 @@ const UpdateCaptionValidator = [
   (req, res, next) => handleValidator(req, res, next)
 ];
 
-const requestaptionValidator = [
+const requestCaptionValidator = [
   check('id').exists().notEmpty(),
   (req, res, next) => handleValidator(req, res, next)
 ];
 
 module.exports = {
   createCaptionValidator,
-  requestaptionValidator,
+  requestCaptionValidator,
   UpdateCaptionValidator
 };

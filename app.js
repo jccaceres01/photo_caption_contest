@@ -36,7 +36,7 @@ app.use(session({
   cookie: {
     maxAge: 60 * 60 * 1000,
     httpOnly: true,
-    secure: process.env.HTTP_SECURE_
+    secure: process.env.HTTP_SECURE_APP
   }
 }));
 

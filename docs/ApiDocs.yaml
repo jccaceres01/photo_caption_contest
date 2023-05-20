@@ -754,7 +754,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: 'OK'
+          description: OK
           content:
             application/json:
               examples:
@@ -793,6 +793,54 @@ paths:
           description: Default error sample response
       tags:
         - Captions
+  /api/votes/place:
+    summary: place or update a caption vote
+    post:
+      summary: Place or update a vote for captions
+      description: ''
+      operationId: votes_place
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vote'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              examples:
+                Updated existed vote:
+                  value: |-
+                    {
+                        "id": 169,
+                        "vote": 1,
+                        "caption_id": 3,
+                        "user_id": 1,
+                        "createdAt": "2023-05-20T18:22:41.013Z",
+                        "updatedAt": "2023-05-20T18:23:08.106Z",
+                        "CaptionId": 3
+                    }
+        '201':
+          description: "created"
+          content:
+            application/json:
+              examples:
+                create vote when not exists:
+                  value: |-
+                    {
+                        "id": 169,
+                        "vote": 1,
+                        "caption_id": 3,
+                        "user_id": 1,
+                        "createdAt": "2023-05-20T18:22:41.013Z",
+                        "updatedAt": "2023-05-20T18:23:08.106Z",
+                        "CaptionId": 3
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Votes
 components:
   schemas:
     Login:

@@ -79,12 +79,16 @@ const deleteCaption = async (req, res) => {
  * @param {*} res
  */
 const getAllCaptionsVotes = async (req, res) => {
-  req = matchedData(req);
-  const { id } = req;
-  const caption = await Caption.findByPk(id);
-  if (!caption) return res.status(404).json('Caption not found');
-  const captionVotes = await caption.getVotes();
-  return res.json(captionVotes);
+  try {
+    req = matchedData(req);
+    const { id } = req;
+    const caption = await Caption.findByPk(id);
+    if (!caption) return res.status(404).json('Caption not found');
+    const captionVotes = await caption.getVotes();
+    return res.json(captionVotes);
+  } catch (err) {
+    return res.status(500).json(err.message);
+  }
 };
 
 module.exports = {

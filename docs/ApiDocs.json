@@ -655,6 +655,55 @@
           "Captions"
         ]
       }
+    },
+    "/api/votes/place": {
+      "summary": "place or update a caption vote",
+      "post": {
+        "summary": "Place or update a vote for captions",
+        "description": "",
+        "operationId": "votes_place",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Vote"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Updated existed vote": {
+                    "value": "{\n    \"id\": 169,\n    \"vote\": 1,\n    \"caption_id\": 3,\n    \"user_id\": 1,\n    \"createdAt\": \"2023-05-20T18:22:41.013Z\",\n    \"updatedAt\": \"2023-05-20T18:23:08.106Z\",\n    \"CaptionId\": 3\n}"
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "create vote when not exists": {
+                    "value": "{\n    \"id\": 169,\n    \"vote\": 1,\n    \"caption_id\": 3,\n    \"user_id\": 1,\n    \"createdAt\": \"2023-05-20T18:22:41.013Z\",\n    \"updatedAt\": \"2023-05-20T18:23:08.106Z\",\n    \"CaptionId\": 3\n}"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error sample response"
+          }
+        },
+        "tags": [
+          "Votes"
+        ]
+      }
     }
   },
   "components": {
