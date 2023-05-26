@@ -704,6 +704,33 @@
           "Votes"
         ]
       }
+    },
+    "/api/photos/lastest": {
+      "summary": "Viiew last  five added photos",
+      "get": {
+        "summary": "Get five lastest photos added  to database",
+        "description": "",
+        "operationId": "photos_lastest",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Lastest five photos ": {
+                    "value": "[\n    {\n        \"id\": 26,\n        \"filename\": \"c7cde4eb-e600-4fdc-add3-759e79c6260f.jpeg\",\n        \"user_id\": 1,\n        \"createdAt\": \"2023-05-24T01:15:12.934Z\",\n        \"updatedAt\": \"2023-05-24T01:15:12.934Z\",\n        \"UserId\": 1,\n        \"image_url\": \"http://localhost:3000/images//c7cde4eb-e600-4fdc-add3-759e79c6260f.jpeg\"\n    },\n    {\n        \"id\": 27,\n        \"filename\": \"b04f998f-3ee1-4177-843f-a5ecd2d8de0e.com - 345427 blonde_hair blush brown_hair dress hat link_(zelda) long_hair male pointed_ears princess_zelda short_hair signed the_legend_of_zelda tiara tokuura\",\n        \"user_id\": 1,\n        \"createdAt\": \"2023-05-25T01:46:09.617Z\",\n        \"updatedAt\": \"2023-05-25T01:46:09.617Z\",\n        \"UserId\": 1,\n        \"image_url\": \"http://localhost:3000/images//b04f998f-3ee1-4177-843f-a5ecd2d8de0e.com - 345427 blonde_hair blush brown_hair dress hat link_(zelda) long_hair male pointed_ears princess_zelda short_hair signed the_legend_of_zelda tiara tokuura\"\n    },\n    {\n        \"id\": 28,\n        \"filename\": \"a4fac7b0-9e21-48f7-afd4-71b63ef6f648.com - 290544 gun long_hair mecha nfb-zmc original pantyhose weapon\",\n        \"user_id\": 1,\n        \"createdAt\": \"2023-05-25T01:46:43.090Z\",\n        \"updatedAt\": \"2023-05-25T01:46:43.090Z\",\n        \"UserId\": 1,\n        \"image_url\": \"http://localhost:3000/images//a4fac7b0-9e21-48f7-afd4-71b63ef6f648.com - 290544 gun long_hair mecha nfb-zmc original pantyhose weapon\"\n    },\n    {\n        \"id\": 29,\n        \"filename\": \"1fa3e947-bb54-410e-ac97-5801a51a2bc6.com - 304715 black_hair bra choker green_eyes headphones jpeg_artifacts nababa navel original short_hair shorts skintight underwear wristwear (1)\",\n        \"user_id\": 1,\n        \"createdAt\": \"2023-05-25T01:47:26.487Z\",\n        \"updatedAt\": \"2023-05-25T01:47:26.487Z\",\n        \"UserId\": 1,\n        \"image_url\": \"http://localhost:3000/images//1fa3e947-bb54-410e-ac97-5801a51a2bc6.com - 304715 black_hair bra choker green_eyes headphones jpeg_artifacts nababa navel original short_hair shorts skintight underwear wristwear (1)\"\n    },\n    {\n        \"id\": 30,\n        \"filename\": \"e56187ce-3b1a-48da-bd41-1ca39a0775a6.com - 300543 aqua_eyes armor blonde_hair blush cape chinchongcha dress headdress long_hair necklace pointed_ears princess_zelda signed watermark wristwear\",\n        \"user_id\": 1,\n        \"createdAt\": \"2023-05-25T01:47:58.022Z\",\n        \"updatedAt\": \"2023-05-25T01:47:58.022Z\",\n        \"UserId\": 1,\n        \"image_url\": \"http://localhost:3000/images//e56187ce-3b1a-48da-bd41-1ca39a0775a6.com - 300543 aqua_eyes armor blonde_hair blush cape chinchongcha dress headdress long_hair necklace pointed_ears princess_zelda signed watermark wristwear\"\n    }\n]"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error sample response"
+          }
+        },
+        "tags": [
+          "Photos"
+        ]
+      }
     }
   },
   "components": {

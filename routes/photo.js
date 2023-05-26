@@ -6,7 +6,8 @@ const {
   createPhoto,
   updatePhoto,
   deletePhoto,
-  getPhotoCaptions
+  getPhotoCaptions,
+  getLastPhotos
 } = require('../controllers/photo');
 
 const { upload } = require('../utils/handleStorage');
@@ -19,17 +20,14 @@ const {
 const { validateToken } = require('../utils/handleToken');
 
 /**
- * RestFul routes
+ * Photos routes
  */
 router.get('/', getPhotos);
+router.get('/lastest', getLastPhotos);
 router.get('/:id', requestPhotoValidator, getPhoto);
 router.post('/', validateToken, upload.single('photo'), createPhotoValidator, createPhoto);
 router.put('/:id', validateToken, requestPhotoValidator, createPhotoValidator, updatePhoto);
 router.delete('/:id', validateToken, requestPhotoValidator, deletePhoto);
-
-/**
- * Other routes
- */
 router.get('/:id/captions', requestPhotoValidator, getPhotoCaptions);
 
 module.exports = router;

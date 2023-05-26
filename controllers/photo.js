@@ -134,11 +134,37 @@ const getPhotoCaptions = async (req, res) => {
   }
 };
 
+/**
+ *
+ * Get photo's captions
+ */
+const getLastPhotos = async (req, res) => {
+  try {
+    const photos = await Photo.findAll({
+      order: [['id', 'DESC']],
+      limit: 5
+    });
+
+    if (photos) {
+      const photosWithImagesPath = photos.map(photo => {
+        const photoWithImageUrl = { ...photo.dataValues, image_url: `${IMAGES_URL}/${photo.filename}` };
+        return photoWithImageUrl;
+      });
+      return res.json(photosWithImagesPath);
+    } else {
+      return res.status(404).json('No photos found');
+    }
+  } catch (err) {
+    return res.status(500).json(err.message);
+  }
+};
+
 module.exports = {
   getPhotos,
   getPhoto,
   createPhoto,
   updatePhoto,
   deletePhoto,
-  getPhotoCaptions
+  getPhotoCaptions,
+  getLastPhotos
 };
