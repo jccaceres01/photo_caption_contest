@@ -14,7 +14,7 @@ const routes = require('./routes/index');
 const app = express();
 
 // config swagger ui express
-const swaggerDoc = require('./docs/ApiDocs.json');
+const swaggerDoc = require('./docs/openapi.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 // view engine setup

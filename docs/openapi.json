@@ -762,6 +762,14 @@
             "type": "string",
             "example": "This is fantastic"
           },
+          "style": {
+            "type": "string",
+            "example": "style2"
+          },
+          "photo_id": {
+            "type": "integer",
+            "example": 1
+          },
           "user_id": {
             "type": "integer",
             "example": 12

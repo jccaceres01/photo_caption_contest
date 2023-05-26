@@ -21,7 +21,7 @@ const {
 /**
  * Restful routes
  */
-router.get('/', validateToken, getCaptions);
+router.get('/', getCaptions);
 router.get('/:id', validateToken, requestCaptionValidator, getCaption);
 router.post('/', validateToken, upload.single('photo'), createCaptionValidator, createCaption);
 router.put('/:id', validateToken, requestCaptionValidator, UpdateCaptionValidator, updateCaption);

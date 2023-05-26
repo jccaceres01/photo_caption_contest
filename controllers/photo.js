@@ -60,19 +60,30 @@ const getPhoto = async (req, res) => {
  * @param {*} res
  */
 const createPhoto = async (req, res) => {
-  const { file } = req;
-  req = matchedData(req);
-  const data = {
-    user_id: req.user_id,
-    filename: file.filename
-  };
-  const photo = await Photo.create(data);
-  if (photo) {
-    cache.del('photos');
-    const photoWithImageUrl = { ...photo.dataValues, image_url: `${IMAGES_URL}/${photo.filename}` };
-    return res.status(201).json(photoWithImageUrl);
-  } else {
-    return res.status(422).json('Error creating photo');
+  try {
+    const { file } = req;
+    req = matchedData(req);
+    const data = {
+      user_id: req.user_id,
+      filename: file.filename
+    };
+    const photo = await Photo.create(data);
+    if (photo) {
+      cache.del('photos');
+      const fullInfoPhoto = await Photo.findByPk(photo.id, {
+        include: [
+          { model: User },
+          { model: Caption, include: [{ model: Vote }] }
+        ]
+      });
+      const photoWithImageUrl = { ...fullInfoPhoto.dataValues, image_url: `${IMAGES_URL}/${photo.filename}` };
+      return res.status(201).json(photoWithImageUrl);
+    } else {
+      return res.status(422).json('Error creating photo');
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err.message);
   }
 };
 
